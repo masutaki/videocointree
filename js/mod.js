@@ -1,7 +1,7 @@
 let modInfo = {
-	name: "The ??? Tree",
-	author: "nobody",
-	pointsName: "points",
+	name: "The Video Coin Tree",
+	author: "Masutaki",
+	pointsName: "Gold",
 	modFiles: ["layers.js", "tree.js"],
 
 	discordName: "",
@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Literally nothing",
+	num: "0.1",
+	name: "The begining",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -40,8 +40,8 @@ function canGenPoints(){
 function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
-
-	let gain = new Decimal(1)
+if (hasUpgrade('g', 11)) gain = gain.times(1)
+	let gain = new Decimal(0)
 	return gain
 }
 
