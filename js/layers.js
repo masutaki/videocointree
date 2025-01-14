@@ -15,6 +15,8 @@ addLayer("g", {
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (hasUpgrade('g', 13)) mult = mult.times(upgradeEffect('g', 13))
+        if (hasUpgrade('g', 14)) mult = mult.times(2)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -25,13 +27,39 @@ addLayer("g", {
         {key: "g", description: "G: Reset for Gils", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     upgrades: {
-        rows: 1,
-        cols: 1,
         11: {
             title: "FF I",
-            description: "Star producing 1 gold.",
+            description: "The begining of the legend!<br><br> Start producing 1 Gold.",
             cost: new Decimal(1),
         },
+        12: {
+            title: "FF II",
+            description: "The legend continues!<br><br> Gain Gold based on Gils.",
+            cost: new Decimal(5),
+            effect() {
+                return player[this.layer].points.add(1).pow(0.5)
+            },
+            effectDisplay() {return format(upgradeEffect(this.layer, this.id))+"X"}, //add formating to the effect
+        },
+        13: {
+            title: "FF IV",
+            description: "Wait...where it's III?<br><br> Gold boost Gil gain.",
+            cost: new Decimal(10),
+            effect() {
+                return player.points.add(1).pow(0.5)
+            }
+        },
+        14: {
+            title: "FF V",
+            description: "Now you have Blue Magic!<br><br> Gain X2 gil.",
+            cost: new Decimal(50),
+        },
+        15: {
+            title: "FF VI",
+            description: "The GOAT <br><br>Unlock New Layer.",
+            cost: new Decimal(100),
+        },
+
     },
     layerShown(){return true}
 })
